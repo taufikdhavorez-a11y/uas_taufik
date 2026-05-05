@@ -1,0 +1,12 @@
+Analyzing uas_flutter...                                        
+
+warning - The value of the local variable 'notifier' isn't used - lib\screens\game_screen.dart:18:11 - unused_local_variable
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\game_screen.dart:61:62 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\game_screen.dart:90:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\level_selector_screen.dart:44:32 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\main_menu_screen.dart:56:34 - deprecated_member_use
+warning - The value of the local variable 'cellSize' isn't used - lib\widgets\tts_grid.dart:50:13 - unused_local_variable
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\widgets\tts_grid.dart:52:14 - sized_box_for_whitespace
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\widgets\tts_grid.dart:87:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\widgets\tts_grid.dart:88:49 - deprecated_member_use
+
