@@ -44,10 +44,15 @@ class GameScreen extends ConsumerWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.lightbulb_outline, color: Colors.white, size: 20),
+                      IconButton(
+                        onPressed: () => notifier.useHint(),
+                        icon: const Icon(Icons.lightbulb_outline, color: Colors.white, size: 20),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                      ),
                       const SizedBox(width: 4),
                       Text(
-                        '18',
+                        '${gameState.hintsRemaining}',
                         style: GoogleFonts.outfit(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -106,7 +111,12 @@ class GameScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  const Icon(Icons.lightbulb_outline, color: Colors.white70, size: 24),
+                  IconButton(
+                    onPressed: () => notifier.useHint(),
+                    icon: const Icon(Icons.lightbulb_outline, color: Colors.white70, size: 24),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                  ),
                 ],
               ),
             ),

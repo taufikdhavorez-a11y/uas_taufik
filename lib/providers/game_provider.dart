@@ -10,6 +10,7 @@ class GameState {
   final int? focusedY;
   final ClueDirection focusedDirection;
   final bool isCompleted;
+  final int hintsRemaining;
 
   GameState({
     required this.level,
@@ -19,6 +20,7 @@ class GameState {
     this.focusedY,
     this.focusedDirection = ClueDirection.horizontal,
     this.isCompleted = false,
+    this.hintsRemaining = 18,
   });
 
   GameState copyWith({
@@ -29,6 +31,7 @@ class GameState {
     int? focusedY,
     ClueDirection? focusedDirection,
     bool? isCompleted,
+    int? hintsRemaining,
   }) {
     return GameState(
       level: level ?? this.level,
@@ -38,6 +41,7 @@ class GameState {
       focusedY: focusedY ?? this.focusedY,
       focusedDirection: focusedDirection ?? this.focusedDirection,
       isCompleted: isCompleted ?? this.isCompleted,
+      hintsRemaining: hintsRemaining ?? this.hintsRemaining,
     );
   }
 }
@@ -164,6 +168,28 @@ class GameNotifier extends StateNotifier<GameState> {
       focusedY: targetClue.y, 
       focusedDirection: newDir
     );
+  }
+
+  void useHint() {
+    if (state.hintsRemaining <= 0) return;
+    if (state.focusedX == null || state.focusedY == null) return;
+    
+    final x = state.focusedX!;
+    final y = state.focusedY!;
+    
+    // If already correct, don't waste hint
+    if (state.userGrid[y][x] == state.solutionGrid[y][x]) return;
+    
+    final newUserGrid = [...state.userGrid.map((row) => [...row])];
+    newUserGrid[y][x] = state.solutionGrid[y][x];
+    
+    state = state.copyWith(
+      userGrid: newUserGrid,
+      hintsRemaining: state.hintsRemaining - 1,
+    );
+    
+    _checkCompletion();
+    _moveFocus(x, y, true);
   }
 
   void _moveFocus(int x, int y, bool forward) {
