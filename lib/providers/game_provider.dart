@@ -162,10 +162,10 @@ class GameNotifier extends StateNotifier<GameState> {
       newDir = targetClue.direction;
     }
 
-    // Always set focus to the FIRST box of the target clue
+    // Set focus to the specific box clicked
     state = state.copyWith(
-      focusedX: targetClue.x, 
-      focusedY: targetClue.y, 
+      focusedX: x, 
+      focusedY: y, 
       focusedDirection: newDir
     );
   }

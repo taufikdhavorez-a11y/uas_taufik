@@ -9,11 +9,12 @@ class GameData {
       difficulty: Difficulty.mudah,
       gridSize: 8,
       clues: [
-        Clue(id: 'h1', text: 'Pengajar di sekolah', answer: 'GURU', x: 0, y: 0, direction: ClueDirection.horizontal),
-        Clue(id: 'h2', text: 'Mengasah kemampuan', answer: 'LATIH', x: 0, y: 2, direction: ClueDirection.horizontal),
-        Clue(id: 'h3', text: 'Tempat makan di sekolah', answer: 'KANTIN', x: 1, y: 4, direction: ClueDirection.horizontal),
-        Clue(id: 'v1', text: 'Sebutan kelulusan', answer: 'GELAR', x: 0, y: 0, direction: ClueDirection.vertical),
-        Clue(id: 'v2', text: 'Tes kemampuan siswa', answer: 'UJIAN', x: 3, y: 0, direction: ClueDirection.vertical),
+        Clue(id: 'h1', text: 'Orang yang mengajar kita di sekolah', answer: 'GURU', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'h2', text: 'Pemandangan di belakang panggung', answer: 'LATAR', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'h3', text: 'Rasa sakit yang sangat dalam', answer: 'PANA', x: 3, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Sebutan untuk gelar atau pangkat', answer: 'GELAR', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v2', text: 'Menangis sedih karena duka', answer: 'RATAP', x: 3, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v3', text: 'Perasaan sedih atau duka yang mendalam', answer: 'RANA', x: 5, y: 3, direction: ClueDirection.vertical),
       ],
     ),
     // MUDAH - LEVEL 2
@@ -22,11 +23,12 @@ class GameData {
       difficulty: Difficulty.mudah,
       gridSize: 8,
       clues: [
-        Clue(id: 'h1', text: 'Pengajar di universitas', answer: 'DOSEN', x: 0, y: 1, direction: ClueDirection.horizontal),
-        Clue(id: 'h2', text: 'Tanda pengenal mahasiswa', answer: 'KARTU', x: 0, y: 3, direction: ClueDirection.horizontal),
-        Clue(id: 'h3', text: 'Pengetahuan yang dipelajari', answer: 'ILMU', x: 2, y: 4, direction: ClueDirection.horizontal),
-        Clue(id: 'v1', text: 'Pemimpin fakultas', answer: 'DEKAN', x: 0, y: 1, direction: ClueDirection.vertical),
-        Clue(id: 'v2', text: 'Tugas akhir mahasiswa S1', answer: 'SKRIPSI', x: 2, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h1', text: 'Bangunan batu kuno, seperti Borobudur', answer: 'CANDI', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'h2', text: 'Macam-macam atau variasi rupa', answer: 'RAGAM', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'h3', text: 'Pikiran atau kemampuan berpikir', answer: 'AKAL', x: 1, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Motif atau pola pada gambar', answer: 'CORAK', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v2', text: 'Kepercayaan batin kepada Tuhan', answer: 'IMAN', x: 5, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v3', text: 'Wilayah yang memiliki pemerintahan sendiri', answer: 'NEGARA', x: 3, y: 1, direction: ClueDirection.vertical),
       ],
     ),
     // MUDAH - LEVEL 3
@@ -35,11 +37,40 @@ class GameData {
       difficulty: Difficulty.mudah,
       gridSize: 8,
       clues: [
-        Clue(id: 'h1', text: 'Orang yang belajar di sekolah', answer: 'SISWA', x: 0, y: 1, direction: ClueDirection.horizontal),
-        Clue(id: 'h2', text: 'Penghapus dari bahan kenyal', answer: 'KARET', x: 0, y: 3, direction: ClueDirection.horizontal),
-        Clue(id: 'h3', text: 'Alat untuk berpikir', answer: 'OTAK', x: 0, y: 4, direction: ClueDirection.horizontal),
-        Clue(id: 'v1', text: 'Tempat menuntut ilmu', answer: 'SEKOLAH', x: 0, y: 1, direction: ClueDirection.vertical),
-        Clue(id: 'v2', text: 'Pakaian resmi siswa', answer: 'SERAGAM', x: 2, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h1', text: 'Sebutan untuk kakak atau Bung Karno', answer: 'BUNG', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'h2', text: 'Kumpulan awan putih di langit', answer: 'MEGA', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'h3', text: 'Jangka waktu seratus tahun', answer: 'ABAD', x: 1, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Salah satu tokoh Pandawa yang kuat', answer: 'BIMA', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v2', text: 'Sama dengan negara atau bangsa', answer: 'NEGARA', x: 3, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v3', text: 'Janji pernikahan atau kontrak formal', answer: 'AKAD', x: 4, y: 3, direction: ClueDirection.vertical),
+      ],
+    ),
+    // MUDAH - LEVEL 4
+    LevelData(
+      levelNumber: 4,
+      difficulty: Difficulty.mudah,
+      gridSize: 8,
+      clues: [
+        Clue(id: 'h1', text: 'Kata untuk menyangkal atau menolak', answer: 'BUKAN', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'h2', text: 'Memasak makanan dengan api langsung', answer: 'BAKAR', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'h3', text: 'Daratan yang sangat luas di bumi', answer: 'BENUA', x: 1, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Selesai atau berhenti (seperti sekolah)', answer: 'BUBAR', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v2', text: 'Lawan dari arah kiri', answer: 'KANAN', x: 3, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v3', text: 'Aturan atau kebiasaan di masyarakat', answer: 'NORMA', x: 5, y: 1, direction: ClueDirection.vertical),
+      ],
+    ),
+    // MUDAH - LEVEL 5
+    LevelData(
+      levelNumber: 5,
+      difficulty: Difficulty.mudah,
+      gridSize: 8,
+      clues: [
+        Clue(id: 'h1', text: 'Cara menyesuaikan diri dengan lingkungan', answer: 'ADAPT', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'h2', text: 'Segala sesuatu yang berasal dari alam', answer: 'ALAMI', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'h3', text: 'Hak yang sangat mendasar bagi manusia', answer: 'ASASI', x: 1, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Dasar atau tumpuan untuk berdiri', answer: 'ALAS', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v2', text: 'Nama orang perempuan yang umum', answer: 'ALISA', x: 3, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v3', text: 'Air yang menetes sedikit demi sedikit', answer: 'TITIS', x: 5, y: 1, direction: ClueDirection.vertical),
       ],
     ),
     // MENENGAH - LEVEL 1
@@ -48,10 +79,62 @@ class GameData {
       difficulty: Difficulty.menengah,
       gridSize: 10,
       clues: [
-        Clue(id: 'h1', text: 'Belajar di perguruan tinggi', answer: 'KULIAH', x: 0, y: 1, direction: ClueDirection.horizontal),
-        Clue(id: 'h2', text: 'Karya tulis ilmiah mahasiswa', answer: 'SKRIPSI', x: 0, y: 5, direction: ClueDirection.horizontal),
-        Clue(id: 'v1', text: 'Tempat kuliah', answer: 'KAMPUS', x: 0, y: 1, direction: ClueDirection.vertical),
-        Clue(id: 'v2', text: 'Bantuan biaya pendidikan', answer: 'BEASISWA', x: 4, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h1', text: 'Kegiatan belajar di universitas', answer: 'KULIAH', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'h2', text: 'Alat penggerak pada kendaraan', answer: 'MESIN', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'h3', text: 'Bendera atau simbol kebesaran', answer: 'PANJI', x: 1, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Tempat untuk mahasiswa berkuliah', answer: 'KAMPUS', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v2', text: 'Komunikasi melalui ucapan suara', answer: 'LISAN', x: 3, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v3', text: 'Berasal dari alam atau bersifat asli', answer: 'ALAMI', x: 5, y: 1, direction: ClueDirection.vertical),
+      ],
+    ),
+    // MENENGAH - LEVEL 2
+    LevelData(
+      levelNumber: 2,
+      difficulty: Difficulty.menengah,
+      gridSize: 10,
+      clues: [
+        Clue(id: 'h1', text: 'Tugas akhir mahasiswa untuk lulus S1', answer: 'SKRIPSI', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'h2', text: 'Permukaan yang rata atau tidak miring', answer: 'DATAR', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'h3', text: 'Cara kita menghirup udara ke paru-paru', answer: 'NAPAS', x: 1, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Ujian lisan untuk lulus sarjana', answer: 'SIDANG', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v2', text: 'Tangisan sedih karena duka cita', answer: 'RATAP', x: 3, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'v3', text: 'Rupa muka atau wajah yang cantik', answer: 'PARAS', x: 5, y: 1, direction: ClueDirection.vertical),
+      ],
+    ),
+    // MENENGAH - LEVEL 3
+    LevelData(
+      levelNumber: 3,
+      difficulty: Difficulty.menengah,
+      gridSize: 10,
+      clues: [
+        Clue(id: 'h1', text: 'Istana tempat tinggal raja atau sultan', answer: 'KERATON', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Tempat tinggal penduduk di pedesaan', answer: 'KAMPUNG', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h2', text: 'Kata tanya untuk menanyakan tempat', answer: 'MANA', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'v2', text: 'Perasaan sedih atau duka yang dalam', answer: 'RANA', x: 3, y: 1, direction: ClueDirection.vertical),
+      ],
+    ),
+    // MENENGAH - LEVEL 4
+    LevelData(
+      levelNumber: 4,
+      difficulty: Difficulty.menengah,
+      gridSize: 10,
+      clues: [
+        Clue(id: 'h1', text: 'Belajar di tingkat perguruan tinggi', answer: 'KULIAH', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Tempat murid belajar di dalam sekolah', answer: 'KELAS', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h2', text: 'Perasaan sedih atau duka yang mendalam', answer: 'LARA', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'v2', text: 'Kepala wilayah di tingkat kelurahan', answer: 'LURAH', x: 3, y: 1, direction: ClueDirection.vertical),
+      ],
+    ),
+    // MENENGAH - LEVEL 5
+    LevelData(
+      levelNumber: 5,
+      difficulty: Difficulty.menengah,
+      gridSize: 10,
+      clues: [
+        Clue(id: 'h1', text: 'Pahlawan wanita asal Jepara', answer: 'KARTINI', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Kakak laki-laki dari Ibu Kartini', answer: 'KARTONO', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h2', text: 'Permukaan yang sejajar dan lurus', answer: 'RATA', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'v2', text: 'Posisi mendatar atau bersifat datar', answer: 'RATA', x: 3, y: 1, direction: ClueDirection.vertical),
       ],
     ),
     // SULIT - LEVEL 1
@@ -60,10 +143,104 @@ class GameData {
       difficulty: Difficulty.sulit,
       gridSize: 12,
       clues: [
-        Clue(id: 'h1', text: 'Ilmu tentang pendidikan dan pengajaran', answer: 'PEDAGOGIK', x: 1, y: 2, direction: ClueDirection.horizontal),
-        Clue(id: 'h2', text: 'Rencana pelajaran dalam pendidikan', answer: 'KURIKULUM', x: 0, y: 5, direction: ClueDirection.horizontal),
-        Clue(id: 'v1', text: 'Pertukaran pikiran untuk belajar', answer: 'DISKUSI', x: 3, y: 0, direction: ClueDirection.vertical),
-        Clue(id: 'v2', text: 'Guru besar di universitas', answer: 'PROFESOR', x: 7, y: 2, direction: ClueDirection.vertical),
+        Clue(id: 'h1', text: 'Orang yang berjuang demi bangsa', answer: 'PAHLAWAN', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Pembacaan naskah kemerdekaan Indonesia', answer: 'PROKLAMASI', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h2', text: 'Mati atau sudah tidak hidup (bahasa kasar)', answer: 'KOID', x: 1, y: 4, direction: ClueDirection.horizontal),
+        Clue(id: 'v2', text: 'Sesuatu yang dicapai dari hasil kerja', answer: 'HASIL', x: 3, y: 1, direction: ClueDirection.vertical),
+      ],
+    ),
+    // SULIT - LEVEL 2
+    LevelData(
+      levelNumber: 2,
+      difficulty: Difficulty.sulit,
+      gridSize: 12,
+      clues: [
+        Clue(id: 'h1', text: 'Ilmu tentang cara mengajar anak', answer: 'PEDAGOGIK', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Gelar untuk guru besar di kampus', answer: 'PROFESOR', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h2', text: 'Tindakan bedah atau rencana kerja', answer: 'OPERASI', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'h3', text: 'Sebutan untuk lulusan kuliah S1', answer: 'SARJANA', x: 1, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v2', text: 'Hak yang paling utama (seperti HAM)', answer: 'ASASI', x: 7, y: 3, direction: ClueDirection.vertical),
+      ],
+    ),
+    // SULIT - LEVEL 3
+    LevelData(
+      levelNumber: 3,
+      difficulty: Difficulty.sulit,
+      gridSize: 12,
+      clues: [
+        Clue(id: 'h1', text: 'Perubahan besar di Indonesia tahun 1998', answer: 'REFORMASI', x: 1, y: 1, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Perubahan secara besar-besaran dan cepat', answer: 'REVOLUSI', x: 1, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h2', text: 'Izin tertulis untuk masuk ke luar negeri', answer: 'VISA', x: 1, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'h3', text: 'Perbuatan nyata untuk mencapai tujuan', answer: 'AKSI', x: 3, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v2', text: 'Murid yang belajar di sekolah', answer: 'SISWA', x: 3, y: 1, direction: ClueDirection.vertical),
+      ],
+    ),
+    // SULIT - LEVEL 4
+    LevelData(
+      levelNumber: 4,
+      difficulty: Difficulty.sulit,
+      gridSize: 12,
+      clues: [
+        Clue(id: 'h1', text: 'Lima dasar negara Indonesia', answer: 'PANCASILA', x: 1, y: 5, direction: ClueDirection.horizontal),
+        Clue(id: 'v1', text: 'Naskah kemerdekaan yang dibaca Sukarno', answer: 'PROKLAMASI', x: 6, y: 1, direction: ClueDirection.vertical),
+        Clue(id: 'h2', text: 'Nama kota di Jateng, dekat Yogyakarta', answer: 'SOLO', x: 6, y: 3, direction: ClueDirection.horizontal),
+        Clue(id: 'v2', text: 'Alat untuk membersihkan debu di lantai', answer: 'SAPU', x: 6, y: 5, direction: ClueDirection.vertical),
+      ],
+    ),
+    // SULIT - LEVEL 5
+    LevelData(
+      levelNumber: 5,
+      difficulty: Difficulty.sulit,
+      gridSize: 12,
+      clues: [
+        Clue(
+          id: 'h1',
+          text: 'Sistem pemerintahan dari rakyat oleh rakyat',
+          answer: 'DEMOKRASI',
+          x: 1,
+          y: 1,
+          direction: ClueDirection.horizontal,
+        ),
+        Clue(
+          id: 'v1',
+          text: 'Pemimpin dengan kekuasaan mutlak/otoriter',
+          answer: 'DIKTATOR',
+          x: 1,
+          y: 1,
+          direction: ClueDirection.vertical,
+        ),
+        Clue(
+          id: 'h2',
+          text: 'Satuan terkecil dalam bahasa',
+          answer: 'KATA',
+          x: 1,
+          y: 3,
+          direction: ClueDirection.horizontal,
+        ),
+        Clue(
+          id: 'v2',
+          text: 'Dimensi atau ukuran',
+          answer: 'MATRA',
+          x: 3,
+          y: 1,
+          direction: ClueDirection.vertical,
+        ),
+        Clue(
+          id: 'h3',
+          text: 'Perbuatan nyata untuk mencapai tujuan',
+          answer: 'AKSI',
+          x: 3,
+          y: 5,
+          direction: ClueDirection.horizontal,
+        ),
+        Clue(
+          id: 'v3',
+          text: 'Alat bantu penglihatan atau lensa',
+          answer: 'OPTIK',
+          x: 4,
+          y: 1,
+          direction: ClueDirection.vertical,
+        ),
       ],
     ),
   ];
