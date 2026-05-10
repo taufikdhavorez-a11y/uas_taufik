@@ -65,23 +65,52 @@ class TTSGrid extends ConsumerWidget {
 
     final isFocused = state.focusedX == x && state.focusedY == y;
     final value = state.userGrid[y][x];
+    final solution = state.solutionGrid[y][x];
+    
+    final bool isNotEmpty = value.isNotEmpty;
+    final bool isCorrect = isNotEmpty && value == solution;
+    final bool isWrong = isNotEmpty && value != solution;
+
+    // Determine cell background color
+    Color cellColor;
+    if (isFocused) {
+      cellColor = const Color(0xFF334155); // Muted Slate Focus
+    } else if (isCorrect) {
+      cellColor = const Color(0xFF065F46).withOpacity(0.6); // Deep Emerald
+    } else if (isWrong) {
+      cellColor = const Color(0xFF991B1B).withOpacity(0.6); // Deep Rose
+    } else if (isPartOfActiveClue) {
+      cellColor = const Color(0xFF1E293B); // Active word color
+    } else {
+      cellColor = Colors.white.withOpacity(0.9);
+    }
+
+    // Determine text color
+    Color textColor;
+    if (isFocused || isPartOfActiveClue || isCorrect || isWrong) {
+      textColor = Colors.white;
+    } else {
+      textColor = const Color(0xFF0F172A); // Deep Navy text
+    }
 
     return GestureDetector(
       onTap: () => ref.read(gameProvider(level).notifier).setFocus(x, y),
       child: Container(
         decoration: BoxDecoration(
-          color: isFocused 
-              ? const Color(0xFF6E6E6E) // Focused cell color
-              : (isPartOfActiveClue ? const Color(0xFF4A4A4A) : Colors.white),
-          border: Border.all(color: Colors.black12, width: 0.5),
+          color: cellColor,
+          border: Border.all(
+            color: isFocused ? const Color(0xFF38BDF8) : Colors.black.withOpacity(0.1), 
+            width: isFocused ? 2.5 : 0.5,
+          ),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
           child: Text(
             value,
             style: GoogleFonts.outfit(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: (isPartOfActiveClue || isFocused) ? Colors.white : Colors.black,
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
+              color: textColor,
             ),
           ),
         ),

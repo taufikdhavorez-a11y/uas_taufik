@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/level_model.dart';
@@ -19,25 +20,43 @@ class LevelSelectorScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text(
-          'LEVEL ${difficulty.name.toUpperCase()}',
-          style: GoogleFonts.outfit(fontWeight: FontWeight.bold, letterSpacing: 2),
+          difficulty.name.toUpperCase(),
+          style: GoogleFonts.outfit(
+            fontWeight: FontWeight.w900, 
+            letterSpacing: 4,
+            fontSize: 24,
+          ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white.withOpacity(0.05),
         elevation: 0,
         centerTitle: true,
+        flexibleSpace: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(color: Colors.transparent),
+          ),
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFFFA6E5A),
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color(0xFF0F172A),
+              Color(0xFF020617),
+            ],
+          ),
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: GridView.builder(
+              physics: const BouncingScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
                 childAspectRatio: 1,
               ),
               itemCount: levels.length,
@@ -60,39 +79,38 @@ class LevelSelectorScreen extends StatelessWidget {
           MaterialPageRoute(builder: (context) => GameScreen(level: level)),
         );
       },
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(24),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.05),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
-          boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            )
-          ],
+          color: Colors.white.withOpacity(0.04),
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: Colors.white.withOpacity(0.08), 
+            width: 1.2,
+          ),
         ),
         child: Center(
           child: Text(
             '${level.levelNumber}',
             style: GoogleFonts.outfit(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.w900,
+              color: Colors.white.withOpacity(0.9),
             ),
           ),
         ),
       ),
-    ).animate().fadeIn(delay: (index * 50).ms).scale(curve: Curves.easeOutBack);
+    ).animate().fadeIn(delay: (index * 50).ms).scale(
+      curve: Curves.easeOutBack,
+      begin: const Offset(0.8, 0.8),
+    );
   }
 
   Color _getDifficultyColor(Difficulty diff) {
     switch (diff) {
-      case Difficulty.mudah: return Colors.greenAccent;
-      case Difficulty.menengah: return Colors.orangeAccent;
-      case Difficulty.sulit: return Colors.redAccent;
+      case Difficulty.mudah: return const Color(0xFF10B981);
+      case Difficulty.menengah: return const Color(0xFFF59E0B);
+      case Difficulty.sulit: return const Color(0xFFEF4444);
     }
   }
 }

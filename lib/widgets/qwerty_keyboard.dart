@@ -20,8 +20,11 @@ class QwertyKeyboard extends StatelessWidget {
     ];
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-      color: const Color(0xFFFA6E5A), // Match the reddish/coral keyboard bg
+      padding: const EdgeInsets.fromLTRB(4, 8, 4, 16),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.2),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+      ),
       child: Column(
         children: [
           for (var row in keys)
@@ -30,10 +33,12 @@ class QwertyKeyboard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  if (keys.indexOf(row) == 1) const SizedBox(width: 15),
                   for (var key in row)
                     _buildKey(key),
-                  if (keys.indexOf(row) == 2) // Add delete key to the last row
-                    _buildSpecialKey(Icons.backspace_outlined, onDeleteTap),
+                  if (keys.indexOf(row) == 2) 
+                    _buildSpecialKey(Icons.backspace_rounded, onDeleteTap),
+                  if (keys.indexOf(row) == 1) const SizedBox(width: 15),
                 ],
               ),
             ),
@@ -48,19 +53,27 @@ class QwertyKeyboard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 2),
         child: InkWell(
           onTap: () => onKeyTap(label),
+          borderRadius: BorderRadius.circular(12),
           child: Container(
-            height: 50,
+            height: 54,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: Colors.white.withOpacity(0.3)),
+              color: Colors.white.withOpacity(0.12),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.white.withOpacity(0.1)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                )
+              ],
             ),
             child: Center(
               child: Text(
                 label,
                 style: GoogleFonts.outfit(
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
               ),
@@ -78,14 +91,15 @@ class QwertyKeyboard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 2),
         child: InkWell(
           onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
           child: Container(
-            height: 50,
+            height: 54,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: Colors.white.withOpacity(0.3)),
+              color: Colors.white.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.white.withOpacity(0.05)),
             ),
-            child: Icon(icon, color: Colors.white, size: 20),
+            child: Icon(icon, color: Colors.white, size: 22),
           ),
         ),
       ),
