@@ -1,4 +1,4 @@
-package com.uas.tts.uas_flutter
+package com.uas.tts
 
 import io.flutter.embedding.android.FlutterActivity
 
