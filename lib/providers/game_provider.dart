@@ -56,8 +56,8 @@ class GameNotifier extends StateNotifier<GameState> {
 
     for (var clue in level.clues) {
       for (int i = 0; i < clue.answer.length; i++) {
-        int nx = clue.x + (clue.direction == ClueDirection.horizontal ? i : 0);
-        int ny = clue.y + (clue.direction == ClueDirection.vertical ? i : 0);
+        int nx = (clue.x - 1) + (clue.direction == ClueDirection.horizontal ? i : 0);
+        int ny = (clue.y - 1) + (clue.direction == ClueDirection.vertical ? i : 0);
         solutionGrid[ny][nx] = clue.answer[i];
       }
     }
@@ -116,8 +116,8 @@ class GameNotifier extends StateNotifier<GameState> {
       try {
         final currentActiveClue = state.level.clues.firstWhere(
           (c) => c.direction == state.focusedDirection &&
-                 ((c.direction == ClueDirection.horizontal && state.focusedY == c.y && state.focusedX! >= c.x && state.focusedX! < c.x + c.answer.length) ||
-                  (c.direction == ClueDirection.vertical && state.focusedX == c.x && state.focusedY! >= c.y && state.focusedY! < c.y + c.answer.length))
+                 ((c.direction == ClueDirection.horizontal && state.focusedY == (c.y - 1) && state.focusedX! >= (c.x - 1) && state.focusedX! < (c.x - 1) + c.answer.length) ||
+                  (c.direction == ClueDirection.vertical && state.focusedX == (c.x - 1) && state.focusedY! >= (c.y - 1) && state.focusedY! < (c.y - 1) + c.answer.length))
         );
         
         if (currentActiveClue.direction == ClueDirection.horizontal) {
@@ -133,9 +133,9 @@ class GameNotifier extends StateNotifier<GameState> {
     // Find all clues containing the clicked cell
     final containingClues = state.level.clues.where((c) {
       if (c.direction == ClueDirection.horizontal) {
-        return y == c.y && x >= c.x && x < c.x + c.answer.length;
+        return y == (c.y - 1) && x >= (c.x - 1) && x < (c.x - 1) + c.answer.length;
       } else {
-        return x == c.x && y >= c.y && y < c.y + c.answer.length;
+        return x == (c.x - 1) && y >= (c.y - 1) && y < (c.y - 1) + c.answer.length;
       }
     }).toList();
 

@@ -99,7 +99,10 @@ class GameScreen extends ConsumerWidget {
               // Grid Area
               Expanded(
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: level.difficulty == Difficulty.mudah ? 20 : 12, 
+                    vertical: 10
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF1E293B).withOpacity(0.5),
                     borderRadius: BorderRadius.circular(32),
@@ -115,7 +118,7 @@ class GameScreen extends ConsumerWidget {
                   child: Center(
                     child: SingleChildScrollView(
                       child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: EdgeInsets.all(level.difficulty == Difficulty.mudah ? 20.0 : 8.0),
                         child: TTSGrid(level: level),
                       ),
                     ),
@@ -309,9 +312,9 @@ class GameScreen extends ConsumerWidget {
 
   bool _isCellInClue(Clue clue, int x, int y) {
     if (clue.direction == ClueDirection.horizontal) {
-      return y == clue.y && x >= clue.x && x < clue.x + clue.answer.length;
+      return y == (clue.y - 1) && x >= (clue.x - 1) && x < (clue.x - 1) + clue.answer.length;
     } else {
-      return x == clue.x && y >= clue.y && y < clue.y + clue.answer.length;
+      return x == (clue.x - 1) && y >= (clue.y - 1) && y < (clue.y - 1) + clue.answer.length;
     }
   }
 }

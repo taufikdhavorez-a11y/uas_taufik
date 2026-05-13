@@ -18,6 +18,10 @@ class TTSGrid extends ConsumerWidget {
     final size = level.gridSize;
 
     return LayoutBuilder(builder: (context, constraints) {
+      final double totalPadding = 8.0; // 4.0 * 2
+      final double totalSpacing = (size - 1) * 2.0;
+      final double cellSize = (constraints.maxWidth - totalPadding - totalSpacing) / size;
+
       return Container(
         width: constraints.maxWidth,
         height: constraints.maxWidth,
@@ -41,14 +45,14 @@ class TTSGrid extends ConsumerWidget {
             
             if (!isPlayable) return Container(color: const Color(0xFF2C2C2C));
 
-            return _buildCell(context, ref, x, y, gameState);
+            return _buildCell(context, ref, x, y, gameState, cellSize);
           },
         ),
       );
     });
   }
 
-  Widget _buildCell(BuildContext context, WidgetRef ref, int x, int y, GameState state) {
+  Widget _buildCell(BuildContext context, WidgetRef ref, int x, int y, GameState state, double cellSize) {
     // Check if this cell is part of the active clue
     bool isPartOfActiveClue = false;
     if (state.focusedX != null && state.focusedY != null) {
@@ -102,15 +106,21 @@ class TTSGrid extends ConsumerWidget {
             color: isFocused ? const Color(0xFF38BDF8) : Colors.black.withOpacity(0.1), 
             width: isFocused ? 2.5 : 0.5,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(cellSize * 0.2), // Proportional corner radius
         ),
         child: Center(
-          child: Text(
-            value,
-            style: GoogleFonts.outfit(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: textColor,
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: Padding(
+              padding: EdgeInsets.all(cellSize * 0.1),
+              child: Text(
+                value,
+                style: GoogleFonts.outfit(
+                  fontSize: cellSize * 0.6,
+                  fontWeight: FontWeight.w800,
+                  color: textColor,
+                ),
+              ),
             ),
           ),
         ),
@@ -120,9 +130,9 @@ class TTSGrid extends ConsumerWidget {
 
   bool _isCellInClue(Clue clue, int x, int y) {
     if (clue.direction == ClueDirection.horizontal) {
-      return y == clue.y && x >= clue.x && x < clue.x + clue.answer.length;
+      return y == (clue.y - 1) && x >= (clue.x - 1) && x < (clue.x - 1) + clue.answer.length;
     } else {
-      return x == clue.x && y >= clue.y && y < clue.y + clue.answer.length;
+      return x == (clue.x - 1) && y >= (clue.y - 1) && y < (clue.y - 1) + clue.answer.length;
     }
   }
 }
