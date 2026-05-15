@@ -71,7 +71,7 @@ class QwertyKeyboard extends StatelessWidget {
             child: Center(
               child: Text(
                 label,
-                style: GoogleFonts.outfit(
+                style: GoogleFonts.fredoka(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,

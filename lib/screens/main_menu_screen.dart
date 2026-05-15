@@ -60,7 +60,7 @@ class MainMenuScreen extends StatelessWidget {
               children: [
                 Text(
                   'TTS',
-                  style: GoogleFonts.outfit(
+                  style: GoogleFonts.fredoka(
                     fontSize: 96,
                     fontWeight: FontWeight.w900,
                     color: Colors.white,
@@ -83,7 +83,7 @@ class MainMenuScreen extends StatelessWidget {
                 
                 Text(
                   'ASAH OTAK SETIAP HARI',
-                  style: GoogleFonts.outfit(
+                  style: GoogleFonts.plusJakartaSans(
                     fontSize: 14,
                     color: Colors.white.withOpacity(0.5),
                     letterSpacing: 8,
@@ -147,7 +147,7 @@ class MainMenuScreen extends StatelessWidget {
                   const SizedBox(width: 24),
                   Text(
                     title,
-                    style: GoogleFonts.outfit(
+                    style: GoogleFonts.plusJakartaSans(
                       fontSize: 16, 
                       fontWeight: FontWeight.w700, 
                       letterSpacing: 4,

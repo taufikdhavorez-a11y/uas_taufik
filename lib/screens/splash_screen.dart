@@ -101,7 +101,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 // App Title
                 Text(
                   'TTS',
-                  style: GoogleFonts.outfit(
+                  style: GoogleFonts.fredoka(
                     fontSize: 48,
                     fontWeight: FontWeight.w900,
                     color: Colors.white,
@@ -123,7 +123,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 
                 Text(
                   'TEKA TEKI SILANG',
-                  style: GoogleFonts.outfit(
+                  style: GoogleFonts.plusJakartaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: Colors.white.withOpacity(0.4),

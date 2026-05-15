@@ -115,7 +115,7 @@ class TTSGrid extends ConsumerWidget {
               padding: EdgeInsets.all(cellSize * 0.1),
               child: Text(
                 value,
-                style: GoogleFonts.outfit(
+                style: GoogleFonts.fredoka(
                   fontSize: cellSize * 0.6,
                   fontWeight: FontWeight.w800,
                   color: textColor,

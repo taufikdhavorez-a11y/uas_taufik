@@ -21,7 +21,7 @@ class LevelSelectorScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           difficulty.name.toUpperCase(),
-          style: GoogleFonts.outfit(
+          style: GoogleFonts.fredoka(
             fontWeight: FontWeight.w900, 
             letterSpacing: 4,
             fontSize: 24,
@@ -92,7 +92,7 @@ class LevelSelectorScreen extends StatelessWidget {
         child: Center(
           child: Text(
             '${level.levelNumber}',
-            style: GoogleFonts.outfit(
+            style: GoogleFonts.fredoka(
               fontSize: 32,
               fontWeight: FontWeight.w900,
               color: Colors.white.withOpacity(0.9),

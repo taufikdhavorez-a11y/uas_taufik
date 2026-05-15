@@ -72,7 +72,7 @@ class GameScreen extends ConsumerWidget {
                         children: [
                           Text(
                             'LEVEL ${level.levelNumber}',
-                            style: GoogleFonts.outfit(
+                            style: GoogleFonts.fredoka(
                               color: Colors.white.withOpacity(0.5),
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -81,7 +81,7 @@ class GameScreen extends ConsumerWidget {
                           ),
                           Text(
                             'TTS PINTAR',
-                            style: GoogleFonts.outfit(
+                            style: GoogleFonts.fredoka(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w900,
@@ -150,7 +150,7 @@ class GameScreen extends ConsumerWidget {
                     Expanded(
                       child: Text(
                         activeClueText,
-                        style: GoogleFonts.outfit(
+                        style: GoogleFonts.plusJakartaSans(
                           color: Colors.white.withOpacity(0.9),
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -214,7 +214,7 @@ class GameScreen extends ConsumerWidget {
             const SizedBox(width: 8),
             Text(
               '$hints',
-              style: GoogleFonts.outfit(
+              style: GoogleFonts.fredoka(
                 color: const Color(0xFFF59E0B),
                 fontWeight: FontWeight.w800,
                 fontSize: 14,
@@ -349,7 +349,7 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                   const SizedBox(height: 28),
                   Text(
                     'LUAR BIASA!',
-                    style: GoogleFonts.outfit(
+                    style: GoogleFonts.fredoka(
                       color: Colors.white,
                       fontSize: 30,
                       fontWeight: FontWeight.w900,
@@ -376,7 +376,7 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                     child: Text(
                       'Level ${widget.level.levelNumber} berhasil diselesaikan!',
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.outfit(color: Colors.white70, fontSize: 16, fontWeight: FontWeight.w500),
+                      style: GoogleFonts.plusJakartaSans(color: Colors.white70, fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   )
                       .animate()
@@ -397,7 +397,7 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                         icon: const Icon(Icons.play_arrow_rounded, size: 26),
                         label: Text(
                           'LEVEL SELANJUTNYA',
-                          style: GoogleFonts.outfit(fontWeight: FontWeight.w900, letterSpacing: 1, fontSize: 16),
+                          style: GoogleFonts.fredoka(fontWeight: FontWeight.w900, letterSpacing: 1, fontSize: 16),
                         ),
                         onPressed: () {
                           Navigator.pop(context);
@@ -425,7 +425,7 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                           const Icon(Icons.workspace_premium_rounded, color: Colors.orangeAccent, size: 24),
                           const SizedBox(width: 10),
                           Text('Semua level selesai!',
-                              style: GoogleFonts.outfit(color: Colors.orangeAccent, fontWeight: FontWeight.bold, fontSize: 16)),
+                              style: GoogleFonts.fredoka(color: Colors.orangeAccent, fontWeight: FontWeight.bold, fontSize: 16)),
                         ],
                       ),
                     ).animate().fadeIn(delay: 700.ms),
@@ -433,7 +433,7 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                   TextButton.icon(
                     icon: const Icon(Icons.arrow_back_rounded, color: Colors.white38, size: 18),
                     label: Text('Kembali ke Menu',
-                        style: GoogleFonts.outfit(color: Colors.white38, fontWeight: FontWeight.w600, fontSize: 15)),
+                        style: GoogleFonts.plusJakartaSans(color: Colors.white38, fontWeight: FontWeight.w600, fontSize: 15)),
                     onPressed: () {
                       Navigator.pop(context);
                       Navigator.pop(context);
