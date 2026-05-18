@@ -1,16 +1,10 @@
 # TTS
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Membuat aplikasi Teka Teki Silang (TTS) di Flutter memerlukan struktur data yang solid agar relasi antar kotak (mendatar dan menurun) tetap konsisten. Berikut adalah blueprint arsitektur dan logika yang bisa Anda gunakan:
+1. Arsitektur Data (Model)Untuk mengelola soal mendatar dan soal menurun, Anda memerlukan model yang menyimpan koordinat $(x, y)$ setiap huruf agar sistem tahu kapan sebuah kotak merupakan persimpangan.
+2. Struktur Navigasi & LevelSesuai rencana Anda (3 Tingkat $\times$ 3 Level), gunakan struktur nested routing atau pengiriman argumen:Main Menu: Seleksi Tingkat (Mudah, Menengah, Sulit).Level Selector: Grid 1-3 berdasarkan tingkat yang dipilih.Game Screen: Mengambil data soal berdasarkan tingkat dan level.
+3. Logika Grid (The Logic Engine)Karena ini adalah TTS 5x5 (atau lebih besar tergantung panjang kata), Anda tidak boleh membuat Textfield satu per satu secara manual. Gunakan GridView.builder.Strategi Penempatan:Buat matriks 2D (misal: List<List<String>>) berisi jawaban benar.Buat matriks 2D kedua untuk menyimpan input user.Validasi: Bandingkan matriks input dengan matriks jawaban setiap kali user mengisi kotak.
+4. UI Blueprint (Flutter Widgets)
+   A. Layar Level (Selection)Gunakan Card atau ElevatedButton dalam GridView untuk menampilkan level 1, 2, dan 3. Berikan warna berbeda untuk tiap tingkatan (misal: Hijau untuk Mudah, Kuning untuk Menengah, Merah untuk Sulit).
+   B. Layar Game (Play Area)Bagian Atas: Indikator Level dan Skor.Bagian Tengah: GridView untuk papan TTS. Gunakan AspectRatio agar kotak tetap simetris (persegi).Bagian Bawah: Daftar pertanyaan (Scrollable List) atau satu baris teks yang menampilkan petunjuk berdasarkan kotak yang sedang aktif.
+6. Komponen Kunci di FlutterKomponenWidget FlutterKegunaanPapan TTSGridView.builderMenampilkan grid dinamis. Input HurufRawKeyboardListener / TextFieldMenangani input satu karakter dan pindah fokus otomatis.State ManagementProvider / RiverpodMengelola status jawaban benar/salah secara real-time.AnimasiAnimatedContainerMemberi efek warna hijau jika jawaban benar.
