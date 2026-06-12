@@ -10,6 +10,8 @@ import '../widgets/tts_grid.dart';
 import '../widgets/qwerty_keyboard.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../services/sound_service.dart';
+
 class GameScreen extends ConsumerWidget {
   final LevelData level;
 
@@ -23,6 +25,7 @@ class GameScreen extends ConsumerWidget {
     // Listen for level completion
     ref.listen(gameProvider(level), (previous, next) {
       if (next.isCompleted && !(previous?.isCompleted ?? false)) {
+        SoundService.playSuccess();
         _showCompletionDialog(context, ref);
       }
     });

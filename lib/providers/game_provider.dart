@@ -1,29 +1,59 @@
+import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/clue_model.dart';
 import '../models/level_model.dart';
 
-final totalHintsProvider = StateProvider<int>((ref) => 10);
+final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
+  throw UnimplementedError();
+});
+
+final totalHintsProvider = StateNotifierProvider<HintsNotifier, int>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return HintsNotifier(prefs);
+});
+
+class HintsNotifier extends StateNotifier<int> {
+  final SharedPreferences _prefs;
+  HintsNotifier(this._prefs) : super(_prefs.getInt('total_hints') ?? 10);
+
+  void decrement() {
+    if (state > 0) {
+      state--;
+      _prefs.setInt('total_hints', state);
+    }
+  }
+
+  void increment(int amount) {
+    state += amount;
+    _prefs.setInt('total_hints', state);
+  }
+}
 
 final levelProgressProvider =
     StateNotifierProvider<LevelProgressNotifier, Map<Difficulty, int>>((ref) {
-  return LevelProgressNotifier();
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return LevelProgressNotifier(prefs);
 });
 
 class LevelProgressNotifier extends StateNotifier<Map<Difficulty, int>> {
-  LevelProgressNotifier()
+  final SharedPreferences _prefs;
+  LevelProgressNotifier(this._prefs)
       : super({
-          Difficulty.mudah: 1,
-          Difficulty.menengah: 1,
-          Difficulty.sulit: 1,
+          Difficulty.mudah: _prefs.getInt('level_mudah') ?? 1,
+          Difficulty.menengah: _prefs.getInt('level_menengah') ?? 1,
+          Difficulty.sulit: _prefs.getInt('level_sulit') ?? 1,
         });
 
   void unlockNextLevel(Difficulty difficulty, int completedLevel) {
     final currentUnlocked = state[difficulty] ?? 1;
     if (completedLevel >= currentUnlocked) {
+      final nextLevel = completedLevel + 1;
       state = {
         ...state,
-        difficulty: completedLevel + 1,
+        difficulty: nextLevel,
       };
+      _prefs.setInt('level_${difficulty.name}', nextLevel);
     }
   }
 }
@@ -80,11 +110,31 @@ class GameNotifier extends StateNotifier<GameState> {
   final Ref _ref;
 
   GameNotifier(this._ref, LevelData level)
-      : super(_initialState(level, _ref.read(totalHintsProvider)));
+      : super(_initialState(level, _ref.read(totalHintsProvider), _ref.read(sharedPreferencesProvider)));
 
-  static GameState _initialState(LevelData level, int hints) {
+  static GameState _initialState(LevelData level, int hints, SharedPreferences prefs) {
     final size = level.gridSize;
-    final userGrid = List.generate(size, (_) => List.generate(size, (_) => ''));
+    
+    // Load persisted grid
+    final String gridKey = 'grid_${level.difficulty.name}_${level.levelNumber}';
+    final String? savedGrid = prefs.getString(gridKey);
+    List<List<String>> userGrid;
+    if (savedGrid != null) {
+      try {
+        final List<dynamic> decoded = jsonDecode(savedGrid);
+        userGrid = decoded.map((row) => List<String>.from(row)).toList();
+      } catch (e) {
+        userGrid = List.generate(size, (_) => List.generate(size, (_) => ''));
+      }
+    } else {
+      userGrid = List.generate(size, (_) => List.generate(size, (_) => ''));
+    }
+
+    // Load persisted answered clue IDs
+    final String idsKey = 'ids_${level.difficulty.name}_${level.levelNumber}';
+    final List<String>? savedIds = prefs.getStringList(idsKey);
+    final answeredClueIds = savedIds?.toSet() ?? <String>{};
+
     final solutionGrid = List.generate(
       size,
       (_) => List.generate(size, (_) => ''),
@@ -100,12 +150,35 @@ class GameNotifier extends StateNotifier<GameState> {
       }
     }
 
+    // Check if loaded grid is already completed
+    bool isCompleted = true;
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) {
+        if (solutionGrid[y][x].isNotEmpty && userGrid[y][x] != solutionGrid[y][x]) {
+          isCompleted = false;
+          break;
+        }
+      }
+      if (!isCompleted) break;
+    }
+
     return GameState(
       level: level,
       userGrid: userGrid,
       solutionGrid: solutionGrid,
       hintsRemaining: hints,
+      isCompleted: isCompleted,
+      answeredClueIds: answeredClueIds,
     );
+  }
+
+  void _saveGameState() {
+    final prefs = _ref.read(sharedPreferencesProvider);
+    final String gridKey = 'grid_${state.level.difficulty.name}_${state.level.levelNumber}';
+    final String idsKey = 'ids_${state.level.difficulty.name}_${state.level.levelNumber}';
+
+    prefs.setString(gridKey, jsonEncode(state.userGrid));
+    prefs.setStringList(idsKey, state.answeredClueIds.toList());
   }
 
   void updateCell(int x, int y, String value) {
@@ -118,6 +191,7 @@ class GameNotifier extends StateNotifier<GameState> {
 
     state = state.copyWith(userGrid: newUserGrid);
     _checkCompletion();
+    _saveGameState();
 
     if (value.isNotEmpty) {
       _moveFocus(x, y, true);
@@ -146,6 +220,7 @@ class GameNotifier extends StateNotifier<GameState> {
 
     state = state.copyWith(userGrid: newUserGrid);
     _checkCompletion();
+    _saveGameState();
   }
 
   void setFocus(int x, int y) {
@@ -242,7 +317,7 @@ class GameNotifier extends StateNotifier<GameState> {
     newUserGrid[y][x] = state.solutionGrid[y][x];
 
     // Update global hints
-    _ref.read(totalHintsProvider.notifier).state--;
+    _ref.read(totalHintsProvider.notifier).decrement();
 
     state = state.copyWith(
       userGrid: newUserGrid,
@@ -250,6 +325,7 @@ class GameNotifier extends StateNotifier<GameState> {
     );
 
     _checkCompletion();
+    _saveGameState();
     _moveFocus(x, y, true);
   }
 
@@ -324,12 +400,14 @@ class GameNotifier extends StateNotifier<GameState> {
 
     if (newlyAnswered.isNotEmpty) {
       // Update global hints with bonus
-      _ref.read(totalHintsProvider.notifier).state += extraHints;
+      _ref.read(totalHintsProvider.notifier).increment(extraHints);
 
       state = state.copyWith(
         answeredClueIds: {...state.answeredClueIds, ...newlyAnswered},
         hintsRemaining: _ref.read(totalHintsProvider),
       );
+      
+      _saveGameState();
 
       // Auto-move focus to the next incomplete clue
       if (!state.isCompleted) {
