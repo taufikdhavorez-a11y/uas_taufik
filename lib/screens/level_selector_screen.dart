@@ -1,19 +1,22 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../providers/game_provider.dart';
 import '../models/level_model.dart';
 import '../data/game_data.dart';
 import 'game_screen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class LevelSelectorScreen extends StatelessWidget {
+class LevelSelectorScreen extends ConsumerWidget {
   final Difficulty difficulty;
 
   const LevelSelectorScreen({super.key, required this.difficulty});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final levels = GameData.getLevelsByDifficulty(difficulty);
+    final unlockedLevel = ref.watch(levelProgressProvider)[difficulty] ?? 1;
     final color = _getDifficultyColor(difficulty);
 
     return Scaffold(
@@ -62,7 +65,8 @@ class LevelSelectorScreen extends StatelessWidget {
               itemCount: levels.length,
               itemBuilder: (context, index) {
                 final level = levels[index];
-                return _buildLevelCard(context, level, color, index);
+                final isUnlocked = level.levelNumber <= unlockedLevel;
+                return _buildLevelCard(context, level, color, index, isUnlocked);
               },
             ),
           ),
@@ -71,32 +75,57 @@ class LevelSelectorScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLevelCard(BuildContext context, LevelData level, Color color, int index) {
+  Widget _buildLevelCard(BuildContext context, LevelData level, Color color, int index, bool isUnlocked) {
     return InkWell(
-      onTap: () {
+      onTap: isUnlocked ? () {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => GameScreen(level: level)),
         );
-      },
+      } : null,
       borderRadius: BorderRadius.circular(24),
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.04),
+          color: isUnlocked 
+              ? Colors.white.withOpacity(0.04) 
+              : Colors.black.withOpacity(0.2),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: Colors.white.withOpacity(0.08), 
+            color: isUnlocked 
+                ? Colors.white.withOpacity(0.08) 
+                : Colors.white.withOpacity(0.02), 
             width: 1.2,
           ),
         ),
         child: Center(
-          child: Text(
-            '${level.levelNumber}',
-            style: GoogleFonts.fredoka(
-              fontSize: 32,
-              fontWeight: FontWeight.w900,
-              color: Colors.white.withOpacity(0.9),
-            ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Text(
+                '${level.levelNumber}',
+                style: GoogleFonts.fredoka(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w900,
+                  color: isUnlocked 
+                      ? Colors.white.withOpacity(0.9) 
+                      : Colors.white.withOpacity(0.2),
+                ),
+              ),
+              if (!isUnlocked)
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Colors.black26,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.lock_rounded,
+                    size: 16,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
+                ).animate().scale(delay: 200.ms),
+            ],
           ),
         ),
       ),

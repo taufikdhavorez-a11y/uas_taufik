@@ -91,7 +91,7 @@ class GameScreen extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    _buildHintButton(gameState.hintsRemaining, notifier),
+                    _buildHintButton(ref.watch(totalHintsProvider), notifier),
                   ],
                 ),
               ),

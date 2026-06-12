@@ -2,6 +2,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/clue_model.dart';
 import '../models/level_model.dart';
 
+final totalHintsProvider = StateProvider<int>((ref) => 10);
+
+final levelProgressProvider =
+    StateNotifierProvider<LevelProgressNotifier, Map<Difficulty, int>>((ref) {
+  return LevelProgressNotifier();
+});
+
+class LevelProgressNotifier extends StateNotifier<Map<Difficulty, int>> {
+  LevelProgressNotifier()
+      : super({
+          Difficulty.mudah: 1,
+          Difficulty.menengah: 1,
+          Difficulty.sulit: 1,
+        });
+
+  void unlockNextLevel(Difficulty difficulty, int completedLevel) {
+    final currentUnlocked = state[difficulty] ?? 1;
+    if (completedLevel >= currentUnlocked) {
+      state = {
+        ...state,
+        difficulty: completedLevel + 1,
+      };
+    }
+  }
+}
+
 class GameState {
   final LevelData level;
   final List<List<String>> userGrid;
@@ -21,7 +47,7 @@ class GameState {
     this.focusedY,
     this.focusedDirection = ClueDirection.horizontal,
     this.isCompleted = false,
-    this.hintsRemaining = 10,
+    required this.hintsRemaining,
     this.answeredClueIds = const {},
   });
 
@@ -51,9 +77,12 @@ class GameState {
 }
 
 class GameNotifier extends StateNotifier<GameState> {
-  GameNotifier(LevelData level) : super(_initialState(level));
+  final Ref _ref;
 
-  static GameState _initialState(LevelData level) {
+  GameNotifier(this._ref, LevelData level)
+      : super(_initialState(level, _ref.read(totalHintsProvider)));
+
+  static GameState _initialState(LevelData level, int hints) {
     final size = level.gridSize;
     final userGrid = List.generate(size, (_) => List.generate(size, (_) => ''));
     final solutionGrid = List.generate(
@@ -75,6 +104,7 @@ class GameNotifier extends StateNotifier<GameState> {
       level: level,
       userGrid: userGrid,
       solutionGrid: solutionGrid,
+      hintsRemaining: hints,
     );
   }
 
@@ -197,7 +227,7 @@ class GameNotifier extends StateNotifier<GameState> {
   }
 
   void useHint() {
-    if (state.hintsRemaining <= 0) return;
+    if (_ref.read(totalHintsProvider) <= 0) return;
     if (state.focusedX == null || state.focusedY == null) return;
 
     final x = state.focusedX!;
@@ -211,9 +241,12 @@ class GameNotifier extends StateNotifier<GameState> {
     ];
     newUserGrid[y][x] = state.solutionGrid[y][x];
 
+    // Update global hints
+    _ref.read(totalHintsProvider.notifier).state--;
+
     state = state.copyWith(
       userGrid: newUserGrid,
-      hintsRemaining: state.hintsRemaining - 1,
+      hintsRemaining: _ref.read(totalHintsProvider),
     );
 
     _checkCompletion();
@@ -254,6 +287,12 @@ class GameNotifier extends StateNotifier<GameState> {
       if (!complete) break;
     }
     state = state.copyWith(isCompleted: complete);
+    if (complete) {
+      _ref.read(levelProgressProvider.notifier).unlockNextLevel(
+            state.level.difficulty,
+            state.level.levelNumber,
+          );
+    }
     _checkClueCompletion();
   }
 
@@ -284,9 +323,12 @@ class GameNotifier extends StateNotifier<GameState> {
     }
 
     if (newlyAnswered.isNotEmpty) {
+      // Update global hints with bonus
+      _ref.read(totalHintsProvider.notifier).state += extraHints;
+
       state = state.copyWith(
         answeredClueIds: {...state.answeredClueIds, ...newlyAnswered},
-        hintsRemaining: state.hintsRemaining + extraHints,
+        hintsRemaining: _ref.read(totalHintsProvider),
       );
 
       // Auto-move focus to the next incomplete clue
@@ -346,5 +388,5 @@ final gameProvider =
       ref,
       level,
     ) {
-      return GameNotifier(level);
+      return GameNotifier(ref, level);
     });
