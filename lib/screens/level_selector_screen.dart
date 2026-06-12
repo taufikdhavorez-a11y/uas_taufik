@@ -30,7 +30,7 @@ class LevelSelectorScreen extends ConsumerWidget {
             fontSize: 24,
           ),
         ),
-        backgroundColor: Colors.white.withOpacity(0.05),
+        backgroundColor: Colors.white.withValues(alpha: 0.05),
         elevation: 0,
         centerTitle: true,
         flexibleSpace: ClipRect(
@@ -75,63 +75,91 @@ class LevelSelectorScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildLevelCard(BuildContext context, LevelData level, Color color, int index, bool isUnlocked) {
-    return InkWell(
-      onTap: isUnlocked ? () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => GameScreen(level: level)),
-        );
-      } : null,
-      borderRadius: BorderRadius.circular(24),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        decoration: BoxDecoration(
-          color: isUnlocked 
-              ? Colors.white.withOpacity(0.04) 
-              : Colors.black.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: isUnlocked 
-                ? Colors.white.withOpacity(0.08) 
-                : Colors.white.withOpacity(0.02), 
-            width: 1.2,
-          ),
-        ),
-        child: Center(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Text(
-                '${level.levelNumber}',
-                style: GoogleFonts.fredoka(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w900,
-                  color: isUnlocked 
-                      ? Colors.white.withOpacity(0.9) 
-                      : Colors.white.withOpacity(0.2),
-                ),
+  Widget _buildLevelCard(BuildContext context, LevelData level, Color difficultyColor, int index, bool isUnlocked) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final Color accentColor = isUnlocked ? difficultyColor : Colors.white10;
+
+        return InkWell(
+          onTap: isUnlocked ? () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => GameScreen(level: level)),
+            );
+          } : null,
+          borderRadius: BorderRadius.circular(20),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 400),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: isUnlocked ? [
+                  accentColor.withValues(alpha: 0.3),
+                  accentColor.withValues(alpha: 0.1),
+                ] : [
+                  Colors.white.withValues(alpha: 0.05),
+                  Colors.white.withValues(alpha: 0.02),
+                ],
               ),
-              if (!isUnlocked)
-                Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Colors.black26,
-                    shape: BoxShape.circle,
+              border: Border.all(
+                color: isUnlocked 
+                  ? accentColor.withValues(alpha: 0.6) 
+                  : Colors.white10,
+                width: 1.5,
+              ),
+              boxShadow: isUnlocked ? [
+                BoxShadow(
+                  color: accentColor.withValues(alpha: 0.2),
+                  blurRadius: 10,
+                  spreadRadius: 1,
+                )
+              ] : [],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'LEVEL',
+                  style: GoogleFonts.fredoka(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 2,
+                    color: isUnlocked 
+                      ? accentColor.withValues(alpha: 0.9) 
+                      : Colors.white24,
                   ),
-                  child: Icon(
-                    Icons.lock_rounded,
-                    size: 16,
-                    color: Colors.white.withOpacity(0.5),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  '${level.levelNumber}',
+                  style: GoogleFonts.lilitaOne(
+                    fontSize: 34,
+                    color: isUnlocked 
+                      ? Colors.white 
+                      : Colors.white10,
                   ),
-                ).animate().scale(delay: 200.ms),
-            ],
+                ),
+                if (!isUnlocked)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Icon(
+                      Icons.lock_rounded,
+                      size: 14,
+                      color: Colors.white24,
+                    ),
+                  ),
+              ],
+            ),
           ),
-        ),
-      ),
-    ).animate().fadeIn(delay: (index * 50).ms).scale(
-      curve: Curves.easeOutBack,
-      begin: const Offset(0.8, 0.8),
+        ).animate().scale(
+          duration: 400.ms,
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1, 1),
+          curve: Curves.easeOutBack,
+        ).fadeIn(delay: (index * 40).ms);
+      }
     );
   }
 

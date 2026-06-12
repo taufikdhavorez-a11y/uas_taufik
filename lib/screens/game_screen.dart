@@ -70,13 +70,24 @@ class GameScreen extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            'LEVEL ${level.levelNumber}',
-                            style: GoogleFonts.fredoka(
-                              color: Colors.white.withOpacity(0.5),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 2,
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: _getDifficultyColor(level.difficulty).withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: _getDifficultyColor(level.difficulty).withValues(alpha: 0.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: Text(
+                              'LEVEL ${level.levelNumber}',
+                              style: GoogleFonts.lilitaOne(
+                                color: _getDifficultyColor(level.difficulty),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 1.0,
+                              ),
                             ),
                           ),
                           Text(
@@ -104,12 +115,12 @@ class GameScreen extends ConsumerWidget {
                     vertical: 10
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF1E293B).withOpacity(0.5),
+                    color: const Color(0xFF1E293B).withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(32),
-                    border: Border.all(color: Colors.white.withOpacity(0.05)),
+                    border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withValues(alpha: 0.2),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       )
@@ -132,16 +143,16 @@ class GameScreen extends ConsumerWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.04),
+                  color: Colors.white.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: Colors.white.withOpacity(0.08)),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                 ),
                 child: Row(
                   children: [
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF38BDF8).withOpacity(0.1),
+                        color: const Color(0xFF38BDF8).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Icon(Icons.help_center_rounded, color: Color(0xFF38BDF8), size: 22),
@@ -151,7 +162,7 @@ class GameScreen extends ConsumerWidget {
                       child: Text(
                         activeClueText,
                         style: GoogleFonts.plusJakartaSans(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
                           height: 1.4,
@@ -186,7 +197,7 @@ class GameScreen extends ConsumerWidget {
     showGeneralDialog(
       context: context,
       barrierDismissible: false,
-      barrierColor: Colors.black.withOpacity(0.85),
+      barrierColor: Colors.black.withValues(alpha: 0.85),
       transitionDuration: const Duration(milliseconds: 400),
       pageBuilder: (context, anim1, anim2) {
         return _CompletionOverlay(level: level, nextLevel: nextLevel);
@@ -204,9 +215,9 @@ class GameScreen extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: const Color(0xFFF59E0B).withOpacity(0.15),
+          color: const Color(0xFFF59E0B).withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFF59E0B).withOpacity(0.3)),
+          border: Border.all(color: const Color(0xFFF59E0B).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -231,6 +242,14 @@ class GameScreen extends ConsumerWidget {
       return y == (clue.y - 1) && x >= (clue.x - 1) && x < (clue.x - 1) + clue.answer.length;
     } else {
       return x == (clue.x - 1) && y >= (clue.y - 1) && y < (clue.y - 1) + clue.answer.length;
+    }
+  }
+
+  Color _getDifficultyColor(Difficulty diff) {
+    switch (diff) {
+      case Difficulty.mudah: return const Color(0xFF10B981);
+      case Difficulty.menengah: return const Color(0xFFF59E0B);
+      case Difficulty.sulit: return const Color(0xFFEF4444);
     }
   }
 }
@@ -317,14 +336,14 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: RadialGradient(colors: [
-                        const Color(0xFFFFD700).withOpacity(0.3),
-                        const Color(0xFFFFD700).withOpacity(0.05),
+                        const Color(0xFFFFD700).withValues(alpha: 0.3),
+                        const Color(0xFFFFD700).withValues(alpha: 0.05),
                       ]),
                       border: Border.all(
-                          color: const Color(0xFFFFD700).withOpacity(0.5), width: 2),
+                          color: const Color(0xFFFFD700).withValues(alpha: 0.5), width: 2),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFFFD700).withOpacity(0.4),
+                          color: const Color(0xFFFFD700).withValues(alpha: 0.4),
                           blurRadius: 40,
                           spreadRadius: 5,
                         ),
@@ -343,7 +362,7 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                       .then()
                       .shimmer(
                         duration: 1200.ms,
-                        color: Colors.white.withOpacity(0.6),
+                        color: Colors.white.withValues(alpha: 0.6),
                         delay: 200.ms,
                       ),
                   const SizedBox(height: 28),
@@ -356,7 +375,7 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                       letterSpacing: 1.5,
                       shadows: [
                         Shadow(
-                          color: const Color(0xFFFFD700).withOpacity(0.8),
+                          color: const Color(0xFFFFD700).withValues(alpha: 0.8),
                           blurRadius: 20,
                         ),
                       ],
@@ -369,9 +388,9 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.06),
+                      color: Colors.white.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.white.withOpacity(0.1)),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                     ),
                     child: Text(
                       'Level ${widget.level.levelNumber} berhasil diselesaikan!',
@@ -415,9 +434,9 @@ class _CompletionOverlayState extends State<_CompletionOverlay>
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.orangeAccent.withOpacity(0.1),
+                        color: Colors.orangeAccent.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.orangeAccent.withOpacity(0.3)),
+                        border: Border.all(color: Colors.orangeAccent.withValues(alpha: 0.3)),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -472,7 +491,7 @@ class _ParticlePainter extends CustomPainter {
       final y = -20 + t * (size.height + 60);
       final opacity = t < 0.1 ? t * 10 : (t > 0.8 ? (1 - t) * 5 : 1.0);
       final paint = Paint()
-        ..color = p.color.withOpacity(opacity.clamp(0.0, 0.9))
+        ..color = p.color.withValues(alpha: opacity.clamp(0.0, 0.9))
         ..style = PaintingStyle.fill;
       if (i % 2 == 0) {
         canvas.drawCircle(Offset(x, y), p.size / 2, paint);

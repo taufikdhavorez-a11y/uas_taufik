@@ -80,13 +80,13 @@ class TTSGrid extends ConsumerWidget {
     if (isFocused) {
       cellColor = const Color(0xFF334155); // Muted Slate Focus
     } else if (isCorrect) {
-      cellColor = const Color(0xFF065F46).withOpacity(0.6); // Deep Emerald
+      cellColor = const Color(0xFF065F46).withValues(alpha: 0.6); // Deep Emerald
     } else if (isWrong) {
-      cellColor = const Color(0xFF991B1B).withOpacity(0.6); // Deep Rose
+      cellColor = const Color(0xFF991B1B).withValues(alpha: 0.6); // Deep Rose
     } else if (isPartOfActiveClue) {
       cellColor = const Color(0xFF1E293B); // Active word color
     } else {
-      cellColor = Colors.white.withOpacity(0.9);
+      cellColor = Colors.white.withValues(alpha: 0.9);
     }
 
     // Determine text color
@@ -103,7 +103,7 @@ class TTSGrid extends ConsumerWidget {
         decoration: BoxDecoration(
           color: cellColor,
           border: Border.all(
-            color: isFocused ? const Color(0xFF38BDF8) : Colors.black.withOpacity(0.1), 
+            color: isFocused ? const Color(0xFF38BDF8) : Colors.black.withValues(alpha: 0.1), 
             width: isFocused ? 2.5 : 0.5,
           ),
           borderRadius: BorderRadius.circular(cellSize * 0.2), // Proportional corner radius

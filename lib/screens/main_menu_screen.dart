@@ -35,7 +35,7 @@ class MainMenuScreen extends StatelessWidget {
                 height: 300,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFF38BDF8).withOpacity(0.05),
+                  color: const Color(0xFF38BDF8).withValues(alpha: 0.05),
                 ),
               ).animate(onPlay: (controller) => controller.repeat(reverse: true))
                .move(begin: const Offset(0, 0), end: const Offset(-20, 30), duration: 5.seconds, curve: Curves.easeInOut),
@@ -49,7 +49,7 @@ class MainMenuScreen extends StatelessWidget {
                 height: 250,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFF818CF8).withOpacity(0.04),
+                  color: const Color(0xFF818CF8).withValues(alpha: 0.04),
                 ),
               ).animate(onPlay: (controller) => controller.repeat(reverse: true))
                .move(begin: const Offset(0, 0), end: const Offset(30, -20), duration: 7.seconds, curve: Curves.easeInOut),
@@ -67,7 +67,7 @@ class MainMenuScreen extends StatelessWidget {
                     letterSpacing: 18,
                     shadows: [
                       Shadow(
-                        color: const Color(0xFF38BDF8).withOpacity(0.3),
+                        color: const Color(0xFF38BDF8).withValues(alpha: 0.3),
                         offset: const Offset(0, 4),
                         blurRadius: 30,
                       )
@@ -85,7 +85,7 @@ class MainMenuScreen extends StatelessWidget {
                   'ASAH OTAK SETIAP HARI',
                   style: GoogleFonts.plusJakartaSans(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withValues(alpha: 0.5),
                     letterSpacing: 8,
                     fontWeight: FontWeight.w600,
                   ),
@@ -118,10 +118,10 @@ class MainMenuScreen extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.05),
+              color: Colors.white.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                color: Colors.white.withOpacity(0.1),
+                color: Colors.white.withValues(alpha: 0.1),
                 width: 1.2,
               ),
             ),
@@ -156,9 +156,9 @@ class MainMenuScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: color.withOpacity(0.15),
+                      color: color.withValues(alpha: 0.15),
                       shape: BoxShape.circle,
-                      border: Border.all(color: color.withOpacity(0.3)),
+                      border: Border.all(color: color.withValues(alpha: 0.3)),
                     ),
                     child: Icon(Icons.arrow_forward_ios, size: 12, color: color),
                   ),

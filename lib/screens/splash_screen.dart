@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF38BDF8).withOpacity(0.1),
+                    color: const Color(0xFF38BDF8).withValues(alpha: 0.1),
                     blurRadius: 100,
                     spreadRadius: 50,
                   ),
@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     borderRadius: BorderRadius.circular(28),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
+                        color: Colors.black.withValues(alpha: 0.3),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       ),
@@ -126,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   style: GoogleFonts.plusJakartaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Colors.white.withOpacity(0.4),
+                    color: Colors.white.withValues(alpha: 0.4),
                     letterSpacing: 6,
                   ),
                 ).animate()

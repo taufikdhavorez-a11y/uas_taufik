@@ -22,7 +22,7 @@ class QwertyKeyboard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(4, 8, 4, 16),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.2),
+        color: Colors.black.withValues(alpha: 0.2),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
       ),
       child: Column(
@@ -57,12 +57,12 @@ class QwertyKeyboard extends StatelessWidget {
           child: Container(
             height: 54,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.12),
+              color: Colors.white.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white.withOpacity(0.1)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 )
@@ -95,9 +95,9 @@ class QwertyKeyboard extends StatelessWidget {
           child: Container(
             height: 54,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.08),
+              color: Colors.white.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white.withOpacity(0.05)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
             ),
             child: Icon(icon, color: Colors.white, size: 22),
           ),
